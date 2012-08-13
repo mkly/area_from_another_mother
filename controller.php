@@ -66,7 +66,7 @@ class AreaFromAnotherMotherPackage extends Package {
 	 * @return string
 	 */
 	public function getPackageDescription() {
-		return t('Package Description');
+		return t('Display areas from other site pages.');
 	}
 
 	/**
