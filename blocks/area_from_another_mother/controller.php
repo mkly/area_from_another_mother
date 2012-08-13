@@ -54,7 +54,7 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 	/**
 	 * @var $btInterfaceHeight string
 	 */
-	protected $btInterfaceHeight = "400";
+	protected $btInterfaceHeight = "265";
 	/**
 	 * @var $btCacheBlockRecord bool
 	 */
