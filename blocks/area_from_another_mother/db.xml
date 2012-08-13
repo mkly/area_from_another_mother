@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btAreaFromAnotherMother">
+		<descr>Block Settings for Area From Another Mother</descr>
+		<field name="bID" type="I" size="10">
+			<descr>Unique id form each block</descr>
+			<KEY />
+			<UNSIGNED />
+		</field>
+		<field name="page_id" type="I" size="10">
+			<descr>References Pages.cID</descr>
+			<UNSIGNED />
+			<NOTNULL />
+		</field>
+		<field name="area_name" type="C" size="255">
+			<descr>Page area name</descr>
+			<NOTNULL />
+		</field>
+	</table>
+</schema>
