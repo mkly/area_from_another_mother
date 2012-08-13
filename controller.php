@@ -7,7 +7,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 * @copyright 2012 Mike Lay
 * @license MIT
 * @version 0.1
-* @package Area From Another Mother
+* @package AreaFromAnotherMother
 *
 * MIT LICENSE
 *
