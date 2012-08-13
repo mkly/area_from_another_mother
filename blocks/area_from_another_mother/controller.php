@@ -166,12 +166,22 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 		 * error view
 		 */
 		if($this->error) {
-			$this->writeLog();
 			/**
+			 * Only write to log if
+			 * logging errors is enabled
+			 */
+			if(ENABLE_LOG_ERRORS) {
+				$this->writeLog();
+			}
+			/**
+			 * If set to show errors
 			 * Unique out the duplicates
 			 * and pass to error view
 			 */
-			$this->set('messages', array_unique($this->error_messages));
+			if(Config::get('SITE_DEBUG_LEVEL') == DEBUG_DISPLAY_ERRORS) {
+				$this->set('messages', array_unique($this->error_messages));
+				$this->set('show_errors', true);
+			}
 			$this->render('error');
 		}
 		/**
@@ -349,16 +359,6 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 	}
 
 	/**
-	 * Logs Errors
-	 *
-	 * @param string $message The message to log
-	 * @return void
-	 */
-	protected function logError($message) {
-		$this->log_messages[] = $message;
-	}
-
-	/**
 	 * Writes errors to log
 	 * @return void
 	 */
@@ -374,22 +374,15 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 	/**
 	 * Handles errors
 	 *
-	 * Logs errors if enabled
-	 * Sets error message to display
-	 * based on debug settings
+	 * Adds to log_messages and error_messages
+	 * arrays and sets error to true
 	 *
 	 * @param string $message The message to display
 	 * @return void
 	 */
 	protected function handleError($message) {
-		if(ENABLE_LOG_ERRORS) {
-			$this->logError($message);
-		}
-		if(Config::get('SITE_DEBUG_LEVEL') == DEBUG_DISPLAY_ERRORS) {
-			$this->error_messages = array($message);
-		} else {
-			$this->error_messages[] = $message;
-		}
+		$this->log_messages[] = $message;
+		$this->error_messages[] = $message;
 		$this->error = true;
 	}
 }
