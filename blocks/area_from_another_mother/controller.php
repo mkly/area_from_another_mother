@@ -77,6 +77,12 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 	 */
 	protected $page;
 	/**
+	 * Permission to view area
+	 * @see can_read()
+	 * @var bool
+	 */
+	protected $can_read;
+	/**
 	 * Array of area blocks
 	 * @see area_blocks()
 	 * @var array
@@ -172,6 +178,12 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 		 * No error so we'll set the values
 		 * and render the view
 		 */
+
+		/**
+		 * Check permissions of the area
+		 */
+		$this->set('can_read', $this->can_read());
+
 		$this->set('page', $this->page());
 		$this->set('area', $this->area());
 	}
@@ -257,6 +269,22 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 		return $this->page;
 	}
 
+	/**
+	 * Checks permissions of area
+	 *
+	 * Permissions are base upon the original
+	 * page, not the page displayig the area
+	 *
+	 * @return bool
+	 */
+	protected function can_read() {
+		if(!$this->can_read) {
+			if($this->area()) {
+				$area_permissions = new Permissions($this->area());
+				return $area_permissions->canRead();
+			}
+		}
+	}
 
 	/**
 	 * Adds files that are typically auto
@@ -319,7 +347,6 @@ class AreaFromAnotherMotherBlockController extends BlockController {
 			}
 		}
 	}
-
 
 	/**
 	 * Logs Errors
